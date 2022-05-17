@@ -2,28 +2,35 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="bookshelf.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
 
   </head>
 
   <body>
     <div class="bookshelf">
-      <div class="book">
-        <div class="side spine">
-          <span class="spine-title">The Age of AI: And Our Human Future </span>
-          <span class="spine-author">Henry A Kissinger, Eric Schmidt, Daniel Huttenlocher</span>
-        </div>
-        <div class="side top"></div>
-        <div class="side cover"></div>
-      </div>
-      <div class="book">
-        <div class="side spine">
-          <span class="spine-title">Free Market Revolution</span>
-          <span class="spine-author">Yaron Brook</span>
-        </div>
-        <div class="side top"></div>
-        <div class="side cover"></div>
-      </div>
+      <script>
+        // FETCHING DATA FROM JSON FILE
+        $.getJSON("books.json",
+                  function (data) {
+                            var book = '';
+                            // ITERATING THROUGH OBJECTS
+                            $.each(data, function (key, value) {
+                                      book += '<div class="book">';
+                                      book += '<div class="side spine">';
+                                      book += '<span class="spine-title">' + value.Title + '</span>';
+                                      book += '<span class="spine-author">' + value.Author+ '</span>';
+                                      book += '</div>'
+                                      book += '<div class="side top"></div>';
+                                      book += '<div class="side cover"></div>';
+                                      book += '</div>'
+                                    });
+                            //INSERTING BOOKS
+                            $('.bookshelf').append(book);
+                          });
+        var jsFile = document.createElement("script");
+        jsFile.src = "bookshelf.js";
+        document.body.appendChild(jsFile);
+      </script>
     </div>
   </body>
-  <script src="bookshelf.js"></script>
 </html>
